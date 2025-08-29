@@ -1,7 +1,14 @@
 # 📧 Serverless Email API (Zoho SMTP)
 
-This project provides a lightweight HTTP API for sending emails using Zoho Mail SMTP.
-It supports CORS, JSON requests, input validation, and both plain text + HTML messages.
+This project provides a lightweight HTTP API for sending emails using Zoho Mail SMTP. It supports CORS, JSON requests, input validation, and both plain text + HTML messages.
+
+To improve reliability, it also includes solutions for environments where SMTP may not work due to restricted networks, firewalls, or cloud service limitations. This is achieved by:
+
+Supporting fallback to Zoho’s REST Mail API when SMTP is blocked.
+
+Offering configurable SMTP relay ports (465, 587, 2525) to bypass firewall restrictions.
+
+Allowing integration with secure mail relay services or tunneling mechanisms to ensure message delivery in restricted environments.
 
 # 🚀 Features
 
