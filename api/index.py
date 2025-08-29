@@ -3,7 +3,6 @@ import json
 import smtplib
 import os
 from email.message import EmailMessage
-from template import ui
 
 class handler(BaseHTTPRequestHandler):
     # `OPTIONS` request handler for CORS preflight
@@ -36,7 +35,7 @@ class handler(BaseHTTPRequestHandler):
             ZOHO_EMAIL = data.get("SENDER_EMAIL")
             ZOHO_PASSWORD = data.get("SENDER_PASSWORD")
             TO_EMAIL = data.get("RECEIVER_EMAIL")
-            # HTML_MESSAGE = data.get("HTML_MESSAGE")
+            HTML_MESSAGE = data.get("HTML_MESSAGE")
             
             # Map field names to values
             fields = {
@@ -45,7 +44,7 @@ class handler(BaseHTTPRequestHandler):
                 "SENDER_EMAIL": ZOHO_EMAIL,
                 "SENDER_PASSWORD": ZOHO_PASSWORD,
                 "RECEIVER_EMAIL": TO_EMAIL,
-                # "HTML_MESSAGE": HTML_MESSAGE,
+                "HTML_MESSAGE": HTML_MESSAGE,
             }
 
             errors = {
@@ -72,7 +71,7 @@ class handler(BaseHTTPRequestHandler):
             msg["Subject"] = SUBJECT
             msg.set_content(MESSAGE)
             
-            # msg.add_alternative(HTML_MESSAGE, subtype="html")
+            msg.add_alternative(HTML_MESSAGE, subtype="html")
 
             with smtplib.SMTP_SSL("smtp.zoho.com", 465) as smtp:
                 smtp.login(ZOHO_EMAIL, ZOHO_PASSWORD)
@@ -92,6 +91,13 @@ class handler(BaseHTTPRequestHandler):
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
 
-            # error_response = {"error": str(e)}
-            error_response = {"error": 'An error occurred while processing your request.'}
+            error_response = {"error": str(e)}
             self.wfile.write(json.dumps(error_response).encode("utf-8"))
+
+# Run Server on local machine
+if __name__ == "__main__":
+    PORT = int(os.environ.get("PORT", 8000))
+    server_address = ("", PORT)
+    httpd = HTTPServer(server_address, handler)
+    print(f"🚀 Server running on port {PORT}... Press Ctrl+C to stop.")
+    httpd.serve_forever()
