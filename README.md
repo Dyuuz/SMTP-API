@@ -44,6 +44,12 @@ Install dependencies (if not included in your serverless runtime):
 
 # 📡 API Endpoints
 
+Endpoint URL
+
+```
+https://smtp-api-beta.vercel.app/api
+```
+
 1. Health Check (GET)
  
 GET /
