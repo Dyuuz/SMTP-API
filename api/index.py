@@ -36,7 +36,7 @@ class handler(BaseHTTPRequestHandler):
             ZOHO_EMAIL = data.get("SENDER_EMAIL")
             ZOHO_PASSWORD = data.get("SENDER_PASSWORD")
             TO_EMAIL = data.get("RECEIVER_EMAIL")
-            HTML_MESSAGE = data.get("HTML_MESSAGE")
+            # HTML_MESSAGE = data.get("HTML_MESSAGE")
             
             # Map field names to values
             fields = {
@@ -45,7 +45,7 @@ class handler(BaseHTTPRequestHandler):
                 "SENDER_EMAIL": ZOHO_EMAIL,
                 "SENDER_PASSWORD": ZOHO_PASSWORD,
                 "RECEIVER_EMAIL": TO_EMAIL,
-                "HTML_MESSAGE": HTML_MESSAGE,
+                # "HTML_MESSAGE": HTML_MESSAGE,
             }
 
             errors = {
@@ -72,7 +72,7 @@ class handler(BaseHTTPRequestHandler):
             msg["Subject"] = SUBJECT
             msg.set_content(MESSAGE)
             
-            msg.add_alternative(HTML_MESSAGE, subtype="html")
+            # msg.add_alternative(HTML_MESSAGE, subtype="html")
 
             with smtplib.SMTP_SSL("smtp.zoho.com", 465) as smtp:
                 smtp.login(ZOHO_EMAIL, ZOHO_PASSWORD)
